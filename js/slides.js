@@ -47,6 +47,7 @@ $(window).on('load', function(){
 
 //On DOM ready
 $(document).ready(function() { "use strict";
+
   var $body = $('body');
 
   //add window a trigger
@@ -301,6 +302,7 @@ $(document).ready(function() { "use strict";
       $body.addClass('whiteSlide');
     } else {
       $body.removeClass('whiteSlide');
+      
     }
 
     //prepare slides for transporting
@@ -363,6 +365,7 @@ $(document).ready(function() { "use strict";
         $(".slide.selected [class*='ae-']").addClass('done');
       }, window.slideSpeed + window.effectSpeed + window.cleanupDelay);
     }
+
     //end showSlide();
   }
 
@@ -407,6 +410,7 @@ $(document).ready(function() { "use strict";
             showSlide(window.stage);
             setTimeout(function(){ window.inAction = 0; }, window.slideSpeed);
           }, delay);
+
         }
       }
     }
@@ -1185,6 +1189,14 @@ $(document).ready(function() { "use strict";
             $(element).find('li').eq(selectedIndex).addClass('selected');
           }
         });
+        var newSlide = $('.slide').eq(window.stage - 1);
+        const $panel = $('.top');
+        if ( newSlide.hasClass('whiteSlide') ){
+          $panel.addClass('blacknav');
+        } else {
+          $panel.removeClass('blacknav');
+          
+        }
       }
     },100);
   }
@@ -1918,52 +1930,78 @@ $(document).ready(function() { "use strict";
   $('.dialogTrigger[data-dialog-id]').on('click', function(){
     var dialogID = $(this).data('dialog-id');
 
-    window.showDialog(dialogID)
+    window.showDialog(dialogID);
+    
   });
 
 
-
+  var currentPage = 1;
   //reveal the dialog with ID
   window.showDialog = function(id) {
 
     var dialogID = id,
         $element = $('.dialog[data-dialog-id="' + dialogID + '"]');
-
+  
     if (!$element.is(':visible')){
-      $element.addClass('reveal').slideDown(500,function(){
+      $element.addClass('reveal').fadeIn(500,function(){
         $(this).removeClass('reveal').removeClass('hidden');
       });
     }
-  }
+  
+    // initialize variables for pagination
+    currentPage = 1;
+    var numPages = $element.find('.page').length;
+    var firstPage = $element.find('.initialpage');
+    var dialogHeader = $element.find('.dialog-header');
+  
+    // hide all pages except for the first one
+    $element.find('.page').not(':first').hide();
+    $element.find('.page').first().show();
+  
+    // hide all headers except for the first one
+    dialogHeader.find('h3').not('.page-1').hide();
+    dialogHeader.find('h3').first('.page-1').show();
+  
+    // show/hide next/prev buttons
+    function toggleButtons() {
+      $element.find('#prev-page').toggle(currentPage > 1);
+      $element.find('#next-page').toggle(currentPage < numPages);
+    }
+  
+    // show next page
+    $element.find('#next-page').click(function() {
+      $element.find('.page').eq(currentPage - 1).hide();
+      $element.find('.page').eq(currentPage).show();
+      dialogHeader.find('h3.page-' + currentPage).hide();
+      currentPage++;
+      dialogHeader.find('h3.page-' + currentPage).show();
+      toggleButtons();
+    });
+  
+    // show previous page
+    $element.find('#prev-page').click(function() {
+      $element.find('.page').eq(currentPage - 1).hide();
+      $element.find('.page').eq(currentPage - 2).show();
+      dialogHeader.find('h3.page-' + currentPage).hide();
+      currentPage--;
+      dialogHeader.find('h3.page-' + currentPage).show();
+      toggleButtons();
+    });
+    toggleButtons();
+  
+  };
 
   //hide dialog message
   $('.dialog [data-dialog-action="close"], .dialog [data-dialog-action="hide"]').on('click', function(){
     var $element = $(this).parents('.dialog'),
         action = $(this).data('dialog-action'),
-        dialogID = $element.data('dialog-id'),
-        cookieAge = $element.data('set-cookie'),
-        cookieName = ($element.data('cookie-name')) ? $element.data('cookie-name') : dialogID,
-        cookieValue = ($element.data('cookie-value')) ? $element.data('cookie-value') : true,
-        cookiePath = $element.data('cookie-path');
+        dialogID = $element.data('dialog-id');
 
     $element.addClass('hide').slideUp(500,function(){
       $(this).removeClass('hide');
-
-      if (cookieAge && action == "close"){
-        $.cookie(cookieName, cookieValue, { expires: cookieAge, path: cookiePath });
-      }
+    $element.find('#next-page').off('click');
+    $element.find('#prev-page').off('click');
     });
-  });
-
-  //hide dialog message with cookie
-  $('.dialog[data-set-cookie]').each(function(index, element) {
-    var dialogID = $(element).data('dialog-id'),
-        cookieName = ($(element).data('cookie-name')) ? $(element).data('cookie-name') : dialogID,
-        cookieValue = ($(element).data('cookie-value')) ? $(element).data('cookie-value') : true;
-
-    if ($.cookie(cookieName)){
-      $(element).hide();
-    }
   });
 
   //links
@@ -1982,26 +2020,26 @@ $(document).ready(function() { "use strict";
 
     if (!isNaN(timeoutDelay)) {
       setTimeout(function(){
-        $element.addClass('reveal').slideDown(500,function(){
+        $element.addClass('reveal').fadeIn(500,function(){
           $(this).removeClass('reveal').removeClass('hidden');
         });
       }, timeoutDelay);
     }
   });
 
-  //delay reveal for dialog window
-  $('.dialog[data-dialog-hide-delay]').each(function(){
-    var timeoutDelay = parseFloat($(this).attr('data-dialog-hide-delay')),
-        $element = $(this);
+  // //delay reveal for dialog window
+  // $('.dialog[data-dialog-hide-delay]').each(function(){
+  //   var timeoutDelay = parseFloat($(this).attr('data-dialog-hide-delay')),
+  //       $element = $(this);
 
-    if (!isNaN(timeoutDelay)) {
-      setTimeout(function(){
-        $element.addClass('hide').slideUp(500,function(){
-          $(this).removeClass('hide');
-        });
-      }, timeoutDelay);
-    }
-  });
+  //   if (!isNaN(timeoutDelay)) {
+  //     setTimeout(function(){
+  //       $element.addClass('hide').slideUp(500,function(){
+  //         $(this).removeClass('hide');
+  //       });
+  //     }, timeoutDelay);
+  //   }
+  // });
 
   //submit form
   $('.dialog [data-type="submit"]').click(function(){
@@ -2105,11 +2143,14 @@ $(document).ready(function() { "use strict";
   /////  ///////   ////   ///   //////////
   ////  ///////          ///   //////////
   //////////////////////////////////////
-  $(".sociales").click(function(){
+  $(".nostros").click(function(){
     window.changeSlide(2);
   });
-  $(".corporativos").click(function(){
+  $(".catering").click(function(){
     window.changeSlide(4);
+  });
+  $(".menu").click(function(){
+    window.changeSlide(5);
   });
   $(".servicios").click(function(){
     window.changeSlide(6);

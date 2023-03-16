@@ -5,7 +5,17 @@
     height: 100%;
     z-index: -1;
   }
+.blacknav{
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  transition: 5s;
+}
 
+.blacknav svg{
+  fill: #ffffff !important;
+  transition: 3s;
+
+}
 
 .wrapajust{
     padding: 95px calc(8% + 15px) !important;
@@ -142,8 +152,12 @@
 /* Tamaños Fuente */
 .p12{
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 500;
 }
+.p13{
+  font-size: 13px !important;
+  font-weight: 500;
+  }
 .p14{
   font-size: 14px !important;
   font-weight: 500;
@@ -168,9 +182,14 @@ font-weight: 500;
   font-size: 20px !important;
   font-weight: 500;
 }
+.p16slim{
+  font-size: 16px !important;
+  font-weight: 350;
+  }
 
 .h1custom{
   font-size: 36px;
+  font-weight: 500;
 }
 .h2custom{
   font-size: 20px;
@@ -285,6 +304,15 @@ form{
 .deshabilitado{
   display: none !important;
 }
+@media (max-width: 1100px) {
+  .dialog .ulcontainer{
+    padding-top: 5%;
+  }
+  .dialog ul {
+    margin-top: 10%;
+    
+  }
+}
 
 @media (max-width: 768px) {
   .tooltip li object{
@@ -310,17 +338,96 @@ form{
   .volatile{
     display: block;
   }
+
+}
+
+@media (max-width: 640px) {
+  .dialog .ulcontainer{
+    padding-top: 10%;
+  }
+  .dialog ul {
+    margin-top: 15%;
+    
+  }
+}
+
+/* DIALOG CUSTOM */
+.dialog{
+  font-family: 'Libre+Baskerville';
+  background-color: rgb(255, 246, 234);
+}
+.dialog-header{
+  background-color: #000000;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  color:rgb(255, 245, 233);
+
+}
+.dialog-header h3{
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  padding-top: 7px;
+}
+.dialog-header button{
+  background: none;
 }
 .dialog ul {
   display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  list-style: none;
+  flex-direction: column;
+  flex-wrap: wrap;
   margin: 0;
   padding: 0;
+  padding-right: 4%;
+  margin-top: 5%;
+  
 }
 
-ul li {
+.dialog .ulcontainer{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+}
+.dialogContent p {
+  padding-bottom: 3px;
+  
+}
+.dialogContent li {
+  padding-bottom: 3px !important;
+  list-style-type:disc;
+}
+.dialog-footer {
+  position: relative;
+  text-align: end;
+  bottom: 0;
+}
+.page{
+  margin-top: -4%;
+}
+.page-nav {
+  position: absolute;
+}
+.dialogContent{
+  padding-left: 30px !important;
+}
+/* Estilos para la barra de desplazamiento */
+.ulcontainer::-webkit-scrollbar {
+  width: 5px; /* Ancho de la barra */
+  background-color: transparent; /* Fondo transparente */
+}
+
+.ulcontainer::-webkit-scrollbar-thumb {
+  background-color: rgb(128, 128, 128); /* Color de la barra */
+  border-radius: 5px; /* Borde redondeado */
+}
+
+/* Ocultar la barra cuando no se está desplazando */
+.ulcontainer::-webkit-scrollbar-thumb:hover {
+  background-color: #999; /* Color de la barra cuando se desplaza */
+}
+.dialogTrigger{
+  cursor: pointer;
 }
