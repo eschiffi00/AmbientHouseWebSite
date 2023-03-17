@@ -98,7 +98,7 @@ img {
   display: inline-block;
 }
 img.round {
-  border-radius: 999px;
+  border-radius: 50% !important;
 }
 img.rounded {
   border-radius: 6px;
@@ -1860,11 +1860,12 @@ html.mobile .showForMobileInline {
           transform: translate3d(0, 0, 0);
 }
 .panel.top {
-  opacity: 0.8 !important;
+  opacity: 0.7 !important;
   background: aliceblue;
   height: 70px;
   padding-top: 0px !important;
   margin-top: -5px;
+  transition: 0.8s !important;
 }
 .panel.bottom {
   bottom: 0;
@@ -2004,6 +2005,7 @@ html.mobile .showForMobileInline {
   width: 18px;
   height: 18px;
   vertical-align: bottom;
+  transition: 0.8s !important;
 }
 .slides.whiteSlide .panel svg {
   fill: #000000;
@@ -6442,7 +6444,6 @@ body {
   z-index: 300;
   /* height: fit-content; */
   left: 8%;
-  max-height: 600px;
   height: auto;
 }
 

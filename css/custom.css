@@ -8,13 +8,12 @@
 .blacknav{
   background-color: #000000 !important;
   color: #ffffff !important;
-  transition: 5s;
+  transition: 0.8s !important;
 }
 
 .blacknav svg{
   fill: #ffffff !important;
   transition: 3s;
-
 }
 
 .wrapajust{
@@ -68,7 +67,7 @@
 .slider-container {
   display: flex;
   width: 100%;
-  height: 100vh;
+  height: 50vh;
   overflow-x: scroll;
 
   /* Vamos a añadir esto 👇 */
@@ -85,11 +84,15 @@
 }
 .galeriadot{
   text-align: center;
-  height: 300px;
+  height: 150px;
 }
 .galeriadot li{
   text-align: center;
   height: 100%;
+}
+.galeriadot img {
+  max-width: 45%;
+  display: inline-block;
 }
 .volatile{
   display:none;
@@ -182,10 +185,22 @@ font-weight: 500;
   font-size: 20px !important;
   font-weight: 500;
 }
+.p22{
+  font-size: 22px !important;
+  font-weight: 500;
+}
+.p14slim{
+  font-size: 14px !important;
+  font-weight: 350;
+}
+.p15slim{
+  font-size: 15px !important;
+  font-weight: 350;
+}
 .p16slim{
   font-size: 16px !important;
   font-weight: 350;
-  }
+}
 
 .h1custom{
   font-size: 36px;
@@ -308,9 +323,16 @@ form{
   .dialog .ulcontainer{
     padding-top: 5%;
   }
-  .dialog ul {
-    margin-top: 10%;
-    
+
+  /* .spacing{
+    padding-top: 30px;
+  } */
+  .galeriadot img {
+    max-width: 30%;
+  }
+  .dialogContainer{
+    max-height: 600px;
+    width: min-content;
   }
 }
 
@@ -338,7 +360,17 @@ form{
   .volatile{
     display: block;
   }
-
+  .spacing{
+    padding-top: 40px;
+  }
+  .slider{
+    width: 160%;
+    right: 30%;
+  }
+  .dialogContainer{
+    max-height: 500px;
+    width: min-content;
+  }
 }
 
 @media (max-width: 640px) {
@@ -349,9 +381,54 @@ form{
     margin-top: 15%;
     
   }
+  .spacing{
+    padding-top: 40px;
+  }
 }
+@media (max-width: 640px) {
+  .dialog .ulcontainer{
+    padding-top: 10%;
+    
+  }
+  .dialog ul {
+    margin-top: 30% !important;
+    padding: 10% !important;
+    
+  }
+  .spacing{
+    padding-top: 40px;
+  }
+  .galeriadot img {
+    min-width: 35%;
+  }
+  .slider{
+    width: 160%;
+    right: 30%;
+  }
+  .dialogContainer{
+    max-height: 400px;
+    width: min-content;
+  }
+}
+@media (max-width: 540px) {
+
+  .slider{
+    width: 190%;
+    right: 45%;
+  }
+  .dialogContainer{
+    max-height: 400px;
+  }
+}
+/* @media (max-width: 640px) {
+
+} */
 
 /* DIALOG CUSTOM */
+.dialogContainer{
+  position: fixed;
+  overflow: scroll;
+}
 .dialog{
   font-family: 'Libre+Baskerville';
   background-color: rgb(255, 246, 234);
@@ -362,7 +439,7 @@ form{
   padding: 0;
   top: 0;
   position: fixed;
-  width: 100%;
+  width: min-content;
   left: 0;
   color:rgb(255, 245, 233);
 
@@ -384,6 +461,7 @@ form{
   padding: 0;
   padding-right: 4%;
   margin-top: 5%;
+  width: 100%;
   
 }
 
@@ -430,4 +508,28 @@ form{
 }
 .dialogTrigger{
   cursor: pointer;
+}
+.flex > .col-2-12 {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.flex > .col-5-12 {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+/* .roundeffect{
+  border-radius: 30%;
+  border: 2px solid black;
+  opacity: 0;
+  padding-top: 2px;
+  padding-bottom: 2px;
+} */
+/* .roundeffect:hover{
+  opacity: 0.8;
+  background-color: #FFF;
+  color: #000000;
+  transition: all 0.3s ease; /* para suavizar la transición
+} */
+.space{
+  margin-top: 25px;
 }
