@@ -394,7 +394,7 @@ small .small {
           user-select: none !important;
 }
 .slide .button, .popup .button {
-  margin-left: 5px;
+  /* margin-left: 5px; */
   margin-right: 5px;
 }
 .slide .button.small, .popup .button.small {
@@ -6452,8 +6452,7 @@ body {
   pointer-events: all;
   color: #303030;
   border-radius: 4px;
-  /* box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1); */
-  box-shadow: inset 0px 0px 20px 20px rgb(0 0 0 / 12%);
+  box-shadow: inset 0px 0px 20px 20px rgb(0 0 0 / 26%);
   cursor: default;
   opacity: 0.98;
   line-height: 1.3;
@@ -6468,7 +6467,7 @@ body {
 
 }
 
-.dialog.rectangular {
+ .dialog.rectangular {
   border-radius: 0px;
 }
 .dialog.rounded {
@@ -6477,7 +6476,7 @@ body {
 .dialog:hover {
   opacity: 1;
   box-shadow:inset 0px 0px 20px 20px rgb(0 0 0 / 12%), 0 10px 40px rgba(0, 0, 0, 0.2);
-  /* box-shadow:  */
+
   transition: 0.35s;
 }
 .dialog .button.small {
@@ -6522,7 +6521,7 @@ body {
   content: "";
   width: 14px;
   height: 2px;
-  /* border-radius: 2px; */
+
   background: #ffffff;
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
@@ -6539,9 +6538,7 @@ body {
 .dialog .close.white {
   background: transparent !important;
 }
-/* .dialog .close.white:after, .dialog .close.white:before {
-  background: #fff;
-} */
+
 .dialog:hover .close {
   opacity: 0.6;
 }
@@ -6550,9 +6547,9 @@ body {
 
 }
 .dialog .dialogContent {
-  /* padding: 20px; */
+  padding: 20px;
   margin-top: 6%;
-}
+} 
 .dialog .avatar {
   border-radius: 50px;
   width: 50px;
@@ -6608,7 +6605,7 @@ html:not(.page-loaded) .dialog {
 .dialog.left {
   right: inherit;
   left: 0;
-}
+} */
 /* Slides Custom Styles */
 .svg-5 {
   padding-bottom: 27%;

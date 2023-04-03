@@ -374,6 +374,7 @@ $(document).ready(function() { "use strict";
 
   //Change slide
   window.changeSlide = function(n){
+    
     if (n === "increase"){
       if ((window.stage + 1) >= window.stages){
         n = window.stages;
@@ -612,16 +613,17 @@ $(document).ready(function() { "use strict";
       if ((Math.abs(window.collectScrolls) >= minScrollToSlide) && (window.allowSlide) && (!window.sidebarShown) && (!window.popupShown) && (!window.disableOnScroll)){
 
         window.collectScrolls = 0;
-
+        if (document.querySelector('.noscroll') === null) {
         //should we even..
-        if ((scrollDirection === "down" && window.stage !== window.stages)||(scrollDirection === "up" && window.stage !== 1)){
+          if ((scrollDirection === "down" && window.stage !== window.stages)||(scrollDirection === "up" && window.stage !== 1)){
 
-          //ok let's go
-          if (window.inAction !== 1){
-            if (scrollDirection === "down"){
-              window.changeSlide('increase');
-            } else {
-              window.changeSlide('decrease');
+            //ok let's go
+            if (window.inAction !== 1){
+              if (scrollDirection === "down"){
+                window.changeSlide('increase');
+              } else {
+                window.changeSlide('decrease');
+              }
             }
           }
         }
@@ -814,9 +816,15 @@ $(document).ready(function() { "use strict";
 
   $('.mobile .slides:not(.scroll):not(.simplifiedMobile), .slides.desktopSwipe').swipe({
     swipeStatus:function(event, phase, direction, distance){
+      if (document.querySelector('.noscroll') === null) {
+        window.allowSwipeUp = 1;
+        window.allowSwipeDown = 1;
+      }else{
+        window.allowSwipeUp = 0 ;
+        window.allowSwipeDown = 0;
+      }
 
-      window.allowSwipeUp = 1;
-      window.allowSwipeDown = 1;
+
 
       //set height for current slide
       var $currentSection = $('.slide.selected .content'),
@@ -1941,53 +1949,52 @@ $(document).ready(function() { "use strict";
 
     var dialogID = id,
         $element = $('.dialog[data-dialog-id="' + dialogID + '"]');
-  
     if (!$element.is(':visible')){
       $element.addClass('reveal').fadeIn(500,function(){
         $(this).removeClass('reveal').removeClass('hidden');
       });
     }
+    $element.addClass('noscroll');
+    // // initialize variables for pagination
+    // currentPage = 1;
+    // var numPages = $element.find('.page').length;
+    // var firstPage = $element.find('.initialpage');
+    // var dialogHeader = $element.find('.dialog-header');
   
-    // initialize variables for pagination
-    currentPage = 1;
-    var numPages = $element.find('.page').length;
-    var firstPage = $element.find('.initialpage');
-    var dialogHeader = $element.find('.dialog-header');
+    // // hide all pages except for the first one
+    // $element.find('.page').not(':first').hide();
+    // $element.find('.page').first().show();
   
-    // hide all pages except for the first one
-    $element.find('.page').not(':first').hide();
-    $element.find('.page').first().show();
+    // // hide all headers except for the first one
+    // dialogHeader.find('h3').not('.page-1').hide();
+    // dialogHeader.find('h3').first('.page-1').show();
   
-    // hide all headers except for the first one
-    dialogHeader.find('h3').not('.page-1').hide();
-    dialogHeader.find('h3').first('.page-1').show();
+    // // show/hide next/prev buttons
+    // function toggleButtons() {
+    //   $element.find('#prev-page').toggle(currentPage > 1);
+    //   $element.find('#next-page').toggle(currentPage < numPages);
+    // }
   
-    // show/hide next/prev buttons
-    function toggleButtons() {
-      $element.find('#prev-page').toggle(currentPage > 1);
-      $element.find('#next-page').toggle(currentPage < numPages);
-    }
+    // // show next page
+    // $element.find('#next-page').click(function() {
+    //   $element.find('.page').eq(currentPage - 1).hide();
+    //   $element.find('.page').eq(currentPage).show();
+    //   dialogHeader.find('h3.page-' + currentPage).hide();
+    //   currentPage++;
+    //   dialogHeader.find('h3.page-' + currentPage).show();
+    //   toggleButtons();
+    // });
   
-    // show next page
-    $element.find('#next-page').click(function() {
-      $element.find('.page').eq(currentPage - 1).hide();
-      $element.find('.page').eq(currentPage).show();
-      dialogHeader.find('h3.page-' + currentPage).hide();
-      currentPage++;
-      dialogHeader.find('h3.page-' + currentPage).show();
-      toggleButtons();
-    });
-  
-    // show previous page
-    $element.find('#prev-page').click(function() {
-      $element.find('.page').eq(currentPage - 1).hide();
-      $element.find('.page').eq(currentPage - 2).show();
-      dialogHeader.find('h3.page-' + currentPage).hide();
-      currentPage--;
-      dialogHeader.find('h3.page-' + currentPage).show();
-      toggleButtons();
-    });
-    toggleButtons();
+    // // show previous page
+    // $element.find('#prev-page').click(function() {
+    //   $element.find('.page').eq(currentPage - 1).hide();
+    //   $element.find('.page').eq(currentPage - 2).show();
+    //   dialogHeader.find('h3.page-' + currentPage).hide();
+    //   currentPage--;
+    //   dialogHeader.find('h3.page-' + currentPage).show();
+    //   toggleButtons();
+    // });
+    // toggleButtons();
   
   };
 
@@ -1996,7 +2003,7 @@ $(document).ready(function() { "use strict";
     var $element = $(this).parents('.dialog'),
         action = $(this).data('dialog-action'),
         dialogID = $element.data('dialog-id');
-
+        $element.removeClass('noscroll');
     $element.addClass('hide').slideUp(500,function(){
       $(this).removeClass('hide');
     $element.find('#next-page').off('click');
